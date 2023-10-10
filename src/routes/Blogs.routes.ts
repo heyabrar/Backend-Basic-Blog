@@ -38,11 +38,12 @@ BlogsRouter.get("/get-blogs", async (req, res) => {
 BlogsRouter.post("/create-blog", upload.single("image"), async (req, res) => {
   try {
     const { title, blog } = req.body;
-    await createBlog({
+    const payload = {
       title,
       blog,
-      image: req?.file?.buffer.toString("base64"), // Store the image as base64-encoded string
-    });
+      image: req?.file?.buffer.toString("base64"),
+    };
+    await createBlog(payload);
     res.json({ message: "Blog Created" });
   } catch (error) {
     console.log(error);
