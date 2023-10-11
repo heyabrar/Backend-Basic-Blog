@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createBlog,
   deleteBlogById,
+  getAllReadBlogs,
   getBlogById,
   getBlogs,
   updateBlogById,
@@ -32,6 +33,21 @@ BlogsRouter.get("/get-blogs", async (req, res) => {
       console.log(error);
       res.sendStatus(400);
     }
+  }
+});
+
+
+// If required
+BlogsRouter.get("/get-read-blogs/:markAsRead", async (req, res) => {
+  const { markAsRead } = req?.params;
+  try {
+    const readBlogs = await getAllReadBlogs({
+      markAsRead: Boolean(markAsRead),
+    });
+    res.send(readBlogs);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
   }
 });
 
