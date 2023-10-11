@@ -37,10 +37,11 @@ BlogsRouter.get("/get-blogs", async (req, res) => {
 
 BlogsRouter.post("/create-blog", upload.single("image"), async (req, res) => {
   try {
-    const { title, blog } = req.body;
+    const { title, blog, createdAt } = req.body;
     const payload = {
       title,
       blog,
+      createdAt,
       image: req?.file?.buffer.toString("base64"),
     };
     await createBlog(payload);
